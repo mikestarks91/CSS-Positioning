@@ -5,6 +5,20 @@
   	/*This puts border and padding inside element for all elements*/
 }
 
+/*property order convention:
+
+selector {
+	positioning
+
+	display and box model
+
+	color
+
+	text
+
+	other
+}*/
+
 
 body {
 	display: block;
@@ -14,11 +28,14 @@ body {
 
 div#sidebar {
 	position: fixed;
-	left: 0px;
-	background-color: green;
+	left: 0;
+	top: 0;
+	display: block;
+	overflow: hidden;
 	width: 200px;
 	height: 100%;
-	overflow: hidden;
+	background-color: #F1F1F1;
+	
 }
 
 div#sidebar:hover {
@@ -31,35 +48,71 @@ div#container {
 }
 
 header {
+	position: fixed;
+	z-index: 1;
+	top: 0;
 	width: 100%;
 	height: auto;
+	box-shadow: 0px 1px 2.5px 0px rgba(0,0,0,0.19), 0px 1px 5px 0px rgba(0,0,0,0.19);
 	background-color: #5F5F5F;
 }
 
-ul {
-	list-style-type: none;
+#nav {
+	list-style: none;
 	margin: 0;
 	padding: 0;
 	/*hiding overflow seems to set boundaries of ul to page dimensions and height of li (or a), rather than just disappearing like it would without this*/
-	overflow: hidden;
 	background-color: #333;
 }
 
-li {
+#nav>li {
 	float: left;
+	position: relative;
+	display: inline-block;	
 }
 
 li a {
-	display: inline-block;
-	color: #fff;
+	display: inherit;
 	padding: 10px 12px;
+	color: #fff;
 	text-decoration: none;
 	text-align: center;
 	font-family: Verdana, sans-serif;
 }
 
-li a:hover:not(.active) {
+li a:hover {
 	background-color: green;
+}
+
+#nav ul {
+	position: absolute;
+	top: 100%;
+	/*right: 0; will fix this pulldown list flush to the right side of the pulldown link*/
+	display: none;
+	list-style: none;
+	white-space: nowrap;
+	min-width: auto;
+	padding: 0;
+	/*box-shadow: h-length v-length blur-radius spread-radius red-green-blue-alpha(alpha is opacity, from 0 transparent to 1 fully opaque), [optional next shadow];
+
+	Do webkit and moz to enhance browser compatibility*/
+	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.19), 0px 2px 10px 0px rgba(0,0,0,0.19);
+	margin: 0;
+	background-color: #fff;
+}
+
+#nav ul a {
+	color: black;
+	text-align: left;
+}
+
+#nav li:hover ul {
+	display: block;
+}
+
+#nav li:hover a:hover {
+	color: white;
+	display: inherit;
 }
 
 main {
@@ -68,30 +121,48 @@ main {
 }
 
 article {
-	margin: 25px;
+	margin: 50px 25px;
 }
 
 section {
 	overflow: auto;
 }
 
-img {
-	max-height: 200px;
-	width: auto;
+div#cicero {
 	position: relative;
 	float: right;
-	margin: 5px 0 5px 15px;
+	max-height: 200px;
+	max-width: 100px;
+	min-height: 100px;
+	min-width: 50px;
+	margin: 0 0 12px 20px;
 }
 
-h1::before {
-	content: url("http://www.nadiareisenberg-clararockmore.org/images/img8.gif");
+#cicero>img {
+	max-height: 100%;
+	max-width: 100%;
 }
 
-div.mysquares {
-	width: 200px;
-	height: 100px;
-	background-color: yellow;
-	display: inline-block;
+#cicero span {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	visibility: hidden;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    border-radius: 6px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#cicero:hover span {
+	visibility: visible;
+	opacity: 1;
 }
 
 p {
@@ -99,12 +170,14 @@ p {
 	display: block;
 }
 
-div.mysquares:hover {
-	background-color: cyan;
-}
-
-div.mysquares:active {
-	background-color: blue;
+#cicero span::after {
+	position: absolute;
+	bottom: 100%;
+	left: 46%;
+	right: 46%;
+	border-style: solid;
+	border-color: transparent transparent black transparent;
+	content: " ";
 }
 
 p:first-of-type::first-line {
